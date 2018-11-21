@@ -2,27 +2,18 @@ package io.altar.jseproject.model;
 
 public class Shelf {
 
-	public Shelf(int shelfid, int capacity, Product product, double rentPrice) {
+	public Shelf(int capacity, String product, double rentPrice) {
 		super();
-		this.shelfid = shelfid;
 		this.capacity = capacity;
 		this.product = product;
 		this.rentPrice = rentPrice;
 	}
 
-	private int shelfid;
 	private int capacity;
-	private Product product;
+	private String product;
 	private double rentPrice;
 
-	public int getShelfid() {
-		return shelfid;
-	}
-
-	public void setShelfid(int shelfid) {
-		this.shelfid = shelfid;
-	}
-
+	
 	public int getCapacity() {
 		return capacity;
 	}
@@ -31,11 +22,11 @@ public class Shelf {
 		this.capacity = capacity;
 	}
 
-	public Product getProduct() {
+	public String getProduct() {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(String product) {
 		this.product = product;
 	}
 

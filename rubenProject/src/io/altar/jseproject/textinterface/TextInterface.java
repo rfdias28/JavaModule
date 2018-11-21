@@ -3,6 +3,7 @@ package io.altar.jseproject.textinterface;
 import java.util.Scanner;
 
 import io.altar.jseproject.model.Product;
+import io.altar.jseproject.model.Shelf;
 
 public class TextInterface {
 
@@ -45,8 +46,8 @@ public class TextInterface {
 	private static void printMenu() {
 		
 		System.out.println("Por favor selecione uma das seguintes opções:"+ "\n");
-		System.out.println("1) Listar produtos");
-		System.out.println("2) Listar prateleiras");
+		System.out.println("1) Listar Produtos");
+		System.out.println("2) Listar Prateleiras");
 		System.out.println("3) Sair");
 		
 		
@@ -75,15 +76,15 @@ public class TextInterface {
 			break;
 			
 		}} catch (Exception e) {
-			System.out.println("Insere um n�mero !!!!!");
+			System.out.println("Insere um numero !!!!!");
 			run();
 		}
 		}	
 	
-
-	private static void printProduct() {
+	//-----------------------------------------PRINT PRODUCT---------------------------------------//
+	private static void printProduct() {       
 		Scanner sc = new Scanner(System.in);
-		System.out.println("\r\n" + "Por favor selecione uma das seguintes opções:" + "\n" + "1) Criar novo produto"
+		System.out.println("\r\n" + "Por favor selecione uma das seguintes opções:" +"\n"+"\n" + "1) Criar novo produto"
 				+ "\r\n" + "2) Editar um produto existente" + "\r\n" + "3) Consultar o detalhe de um produto" + "\r\n"
 				+ "4) Remover um produto" + "\r\n" + "5) Voltar ao ecrã anterior");
 		int choice1 = sc.nextInt();
@@ -112,12 +113,14 @@ public class TextInterface {
 			System.out.println("Coloque um numero de 1 a 5");	
 	
 		}
-	}
+	}    //-------------------------------------- FIM PRINT PRODUCT------------------------------------//
+	
+	//-------------------------------------------- PRINT SHELF------------------------------------------------//
 
-	private static void printShelf() {
+	private static void printShelf() { 
 		Scanner sc = new Scanner(System.in);
 		System.out.println(
-				"\r\n" + "Por favor selecione uma das seguintes opções:" + "\r\n" + "1) Criar nova prateleira" + "\r\n"
+				"\r\n" + "Por favor selecione uma das seguintes opções:" +"\n"+"\n" + "1) Criar nova prateleira" + "\r\n"
 						+ "2) Editar uma prateleira existente" + "\r\n" + "3) Consultar o detalhe de uma prateleira"
 						+ "\r\n" + "4) Remover uma prateleira" + "\r\n" + "5) Voltar ao ecrã anterior");
 
@@ -126,10 +129,11 @@ public class TextInterface {
 		
 		switch(choice2) {
 		case 1:
-			getShelfid();
+			
 			makeShelf();
 			break;
 		case 2:
+			getShelfid();
 		case 3:
 		case 4:
 		case 5:	
@@ -138,10 +142,11 @@ public class TextInterface {
 			System.out.println("Coloque um numero de 1 a 5");
 		}
 		
-		
-	}
 
-//-------------------------------------- METODOS PARA PRODUTOS------------------------------// 
+	}
+	//------------------------------------------------------- FIM PRINT SHELF----------------------------------------//
+	
+//---------------------------------------------- METODOS PARA PRODUTOS--------------------------------------// 
 	private static void makeProduct(){
 		System.out.println("Inserir Shelflist");
 		int shelflist = scanInt ();
@@ -159,7 +164,8 @@ public class TextInterface {
 		System.out.println("Produto : " + produto1.getShelflist() + " , " + produto1.getDiscountValue()+ " , " + produto1.getIva()+ " , " + produto1.getPvp());
 	}
 	private static void editProduct(){
-		System.out.println("");
+		System.out.println("Inserir Product ID");
+		int productid= scanInt ();
 	}
 	private static void detailProduct(){
 		System.out.println("e");
@@ -168,21 +174,31 @@ public class TextInterface {
 		System.out.println("e");
 	}
 
-//----------------------------------FIM METODOS DE PRODUTOS----------------------------------------//
+//-----------------------------------------------FIM METODOS DE PRODUTOS----------------------------------------//
 	
-//----------------------------------------METODOS SHELVES------------------------------------------//	
-	private static void getShelfid(){
-		System.out.println("Inserir Shelf ID");
-		int shelfid= scanInt ();
-	}	
+//------------------------------------------------METODOS SHELVES-----------------------------------------------//	
+		
 	private static void makeShelf(){
 		System.out.println("Inserir Capacity");
 		int capacity = scanInt ();
+		
+		System.out.println("Inserir ProductID");
+		String productid = scanString();
 	
 		System.out.println("Inserir rentPrice");
 		double rentprice = scanDouble ();
+		
+		Shelf shelf1 = new Shelf (capacity, productid, rentprice);
+		System.out.println("Shelf : " + shelf1.getCapacity()+ " , " + shelf1.getProduct()+ " , " + shelf1.getRentPrice());
+	}
+		
+	private static void getShelfid(){
+		System.out.println("Inserir Shelf ID");
+		int shelfid= scanInt ();
 	}
 //------------------------------------FIM METODOS SHELVES------------------------------------------//		
 	
+
 }
+
 	
