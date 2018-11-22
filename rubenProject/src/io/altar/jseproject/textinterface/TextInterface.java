@@ -86,9 +86,11 @@ public class TextInterface {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("\r\n" + "Por favor selecione uma das seguintes opções:" +"\n"+"\n" + "1) Criar novo produto"
 				+ "\r\n" + "2) Editar um produto existente" + "\r\n" + "3) Consultar o detalhe de um produto" + "\r\n"
-				+ "4) Remover um produto" + "\r\n" + "5) Voltar ao ecrã anterior");
-		int choice1 = sc.nextInt();
+		+ "4) Remover um produto" + "\r\n" + "5) Voltar ao ecrã anterior");
 		
+		try {
+
+		int choice1 = sc.nextInt();
 		switch(choice1){
 		
 		case 1:
@@ -110,8 +112,12 @@ public class TextInterface {
 		case 5:		
 			run();
 		default:
-			System.out.println("Coloque um numero de 1 a 5");	
+			System.out.println("Coloque um numero de 1 a 5");
+			printProduct();
 	
+		}}catch(Exception e) {
+			System.out.println("Coloque um numero de 1 a 5" + "\n");
+			printProduct();
 		}
 	}    //-------------------------------------- FIM PRINT PRODUCT------------------------------------//
 	
@@ -124,9 +130,9 @@ public class TextInterface {
 						+ "2) Editar uma prateleira existente" + "\r\n" + "3) Consultar o detalhe de uma prateleira"
 						+ "\r\n" + "4) Remover uma prateleira" + "\r\n" + "5) Voltar ao ecrã anterior");
 
-		
+		try {
+			
 		int choice2 = sc.nextInt();
-		
 		switch(choice2) {
 		case 1:
 			
@@ -140,6 +146,9 @@ public class TextInterface {
 			run();
 		default:
 			System.out.println("Coloque um numero de 1 a 5");
+		}} catch(Exception e) {
+			System.out.println("Coloque um numero de 1 a 5" + "\n");
+			printShelf();
 		}
 		
 

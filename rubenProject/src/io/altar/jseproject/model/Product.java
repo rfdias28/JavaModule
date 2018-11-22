@@ -1,6 +1,7 @@
 package io.altar.jseproject.model;
 
-public class Product {
+public class Product extends Entity {
+	
 	private int shelflist;
 	private double discountValue;
 	private double iva;

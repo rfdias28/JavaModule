@@ -1,6 +1,6 @@
 package io.altar.jseproject.model;
 
-public class Shelf {
+public class Shelf extends Entity {
 
 	public Shelf(int capacity, String product, double rentPrice) {
 		super();
