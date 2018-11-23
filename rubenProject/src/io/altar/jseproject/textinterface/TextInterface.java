@@ -4,9 +4,13 @@ import java.util.Scanner;
 
 import io.altar.jseproject.model.Product;
 import io.altar.jseproject.model.Shelf;
+import io.altar.jseproject.repositories.ProductRepository;
+import io.altar.jseproject.repositories.ShelfRepository;
 
 public class TextInterface {
-
+	static ProductRepository repositorioProduto = ProductRepository.getInstance();
+	static ShelfRepository repositorioShelf = ShelfRepository.getInstance();
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		printHeader();
@@ -38,9 +42,9 @@ public class TextInterface {
 	//---------------------------FIM METODOS SCANNER--------------------------------//
 	
 	private static void printHeader() {
-		System.out.println("+-----------------------------------+");
-		System.out.println("|             Bem vindo             |");
-		System.out.println("+-----------------------------------+");
+		System.out.println("+------------------------------------------------+");
+		System.out.println("|                    Bem vindo                   |");
+		System.out.println("+------------------------------------------------+");
 	}
 
 	private static void printMenu() {

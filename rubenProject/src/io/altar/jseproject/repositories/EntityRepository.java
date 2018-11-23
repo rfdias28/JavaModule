@@ -1,24 +1,18 @@
 package io.altar.jseproject.repositories;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-
+import java.util.Map;
 import io.altar.jseproject.model.Entity;
 
-public abstract class EntityRepository<T extends Entity> {
+public abstract class EntityRepository <T extends Entity > {
 
-//	private static final long serialVersionUID = 1L;
 	private Map <Long, T > map = new HashMap <Long, T>();
 	private long actualId=0;	
-
-	private long nextID() {
-		highestID++;
-		return highestID;
-	}
 	
 	public void save(T entity) {
-		entity.setId(actualId);
-		map.put(veic.getId(), entity);
+		entity.setID(actualId);
+		map.put(entity.getID(), entity);
 		actualId++;
 	}
 	
@@ -30,16 +24,16 @@ public abstract class EntityRepository<T extends Entity> {
 		map.remove(id);
 	}
 	
-	public void updateById(T veic) {
-		map.replace(veic.getId(), veic);
+	public void updateById(T entity) {
+		map.replace(entity.getID(), entity);
 	}
 	
-	public Collection<T> getAll() {
+	public Collection <T> getAll() {
 		return map.values();
 	}
 	
 	public Map<Long, T> getMap() {
 		return map;
 	}
-}
+} 
 
