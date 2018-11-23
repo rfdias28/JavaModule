@@ -41,13 +41,13 @@ public class TextInterface {
 		}
 	//---------------------------FIM METODOS SCANNER--------------------------------//
 	
-	private static void printHeader() {
+	public static void printHeader() {
 		System.out.println("+------------------------------------------------+");
 		System.out.println("|                    Bem vindo                   |");
 		System.out.println("+------------------------------------------------+");
 	}
 
-	private static void printMenu() {
+	public static void printMenu() {
 		
 		System.out.println("Por favor selecione uma das seguintes opções:"+ "\n");
 		System.out.println("1) Listar Produtos");
