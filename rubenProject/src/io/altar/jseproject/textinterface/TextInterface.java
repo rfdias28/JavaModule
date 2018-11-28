@@ -23,20 +23,32 @@ public class TextInterface {
 	
 	//-----------------------------METODOS SCANNER----------------------------------//
 	static Scanner scanner = new Scanner(System.in);
+	
 	public static long scanLong () {
-	long variavel = scanner.nextLong();
-	return(variavel);
+
+		while(true) {
+			
+			if(scanner.hasNextLong()==true) {
+				return scanner.nextLong();
+			}else {
+				System.out.println("Isso nao e um numero");
+			}
+			scanner.nextLine();
+		}
+		
 	}
 	public static String scanString () {
-	String variavel = scanner.nextLine();
-	return(variavel);
+		String variavel = scanner.nextLine();
+		return(variavel);
 	}
 	public static double scanDouble () {
-	double variavel = scanner.nextDouble();
-	return(variavel);
+		double variavel = scanner.nextDouble();
+		scanner.nextLine();
+		return(variavel);
 	}
 	public static int scanInt () {
 		int variavel = scanner.nextInt();
+		scanner.nextLine();
 		return(variavel);
 		}
 	//---------------------------FIM METODOS SCANNER--------------------------------//
@@ -67,7 +79,7 @@ public class TextInterface {
 			
 		case 2:
 			printShelf();
-			int choice2 = sc.nextInt();
+
 			break;
 			
 		case 3:
@@ -88,7 +100,13 @@ public class TextInterface {
 	//-----------------------------------------PRINT PRODUCT---------------------------------------//
 	private static void printProduct() {       
 		Scanner sc = new Scanner(System.in);
-		System.out.println("\r\n" + "Por favor selecione uma das seguintes opções:" +"\n"+"\n" + "1) Criar novo produto"
+		
+		System.out.println("Produtos  existentes:\n");
+		for(Product product : repositorioProduto.getAll()) {
+			System.out.println(product.toString());	
+		}
+		
+		System.out.println("\r\n\n" + "Por favor selecione uma das seguintes opções:" +"\n"+"\n" + "1) Criar novo produto"
 				+ "\r\n" + "2) Editar um produto existente" + "\r\n" + "3) Consultar o detalhe de um produto" + "\r\n"
 		+ "4) Remover um produto" + "\r\n" + "5) Voltar ao ecrã anterior");
 		
@@ -129,6 +147,13 @@ public class TextInterface {
 
 	private static void printShelf() { 
 		Scanner sc = new Scanner(System.in);
+		
+		
+		System.out.println("Prateleiras  existentes:\n");
+		for(Shelf shelf : repositorioShelf.getAll()) {
+			System.out.println(shelf.toString());	
+		}
+		
 		System.out.println(
 				"\r\n" + "Por favor selecione uma das seguintes opções:" +"\n"+"\n" + "1) Criar nova prateleira" + "\r\n"
 						+ "2) Editar uma prateleira existente" + "\r\n" + "3) Consultar o detalhe de uma prateleira"
@@ -143,14 +168,16 @@ public class TextInterface {
 			makeShelf();
 			break;
 		case 2:
-			getShelfid();
-		case 3:
-		case 4:
-		case 5:	
-			run();
+			editShelf();
+			break;
+		case 3:break;
+		case 4:break;
+		case 5:
+			run();	break;
 		default:
 			System.out.println("Coloque um numero de 1 a 5");
 		}} catch(Exception e) {
+			System.out.println(e);
 			System.out.println("Coloque um numero de 1 a 5" + "\n");
 			printShelf();
 		}
@@ -173,8 +200,10 @@ public class TextInterface {
 		System.out.println("Inserir PVP");
 		double pvp = scanDouble ();
 		
-		Product produto1 = new Product (shelflist, discountValue, iva, pvp);
-		System.out.println("Produto : " + produto1.getShelflist() + " , " + produto1.getDiscountValue()+ " , " + produto1.getIva()+ " , " + produto1.getPvp());
+		Product produto1 = new Product (discountValue, iva, pvp);
+		repositorioProduto.save(produto1);
+		
+		System.out.println(produto1.toString());
 	}
 	private static void editProduct(){
 		System.out.println("Inserir Product ID");
@@ -192,22 +221,65 @@ public class TextInterface {
 //------------------------------------------------METODOS SHELVES-----------------------------------------------//	
 		
 	private static void makeShelf(){
+
 		System.out.println("Inserir Capacity");
 		int capacity = scanInt ();
 		
-		System.out.println("Inserir ProductID");
-		String productid = scanString();
+//		System.out.println("Inserir ProductID");
+//		String productid = scanString();
 	
 		System.out.println("Inserir rentPrice");
 		double rentprice = scanDouble ();
-		
-		Shelf shelf1 = new Shelf (capacity, productid, rentprice);
-		System.out.println("Shelf : " + shelf1.getCapacity()+ " , " + shelf1.getProduct()+ " , " + shelf1.getRentPrice());
+
+		Shelf shelf1 = new Shelf(capacity, rentprice);
+	
+		repositorioShelf.save(shelf1);
+		System.out.println(shelf1.toString());
+		printShelf();
+	
 	}
 		
-	private static void getShelfid(){
+	private static void editShelf(){
 		System.out.println("Inserir Shelf ID");
-		int shelfid= scanInt ();
+		long shelfid= scanLong ();
+		
+		if(repositorioShelf.findById(shelfid)!=null) {
+
+			System.out.println("Inserir nova Capacity");
+			int capacity = scanInt ();
+
+		
+			System.out.println("Inserir novo rentPrice");
+			double rentprice = scanDouble ();
+			
+			Shelf shelf1 = new Shelf(capacity, rentprice);
+			
+			System.out.println("Quer associar um produto? (s/n)");
+			
+			String resposta = scanString();
+	
+			if(resposta.equals("s")) {
+				System.out.println("Qual e o id do produto");
+				long produtoId = scanLong();
+				Product product =repositorioProduto.findById(produtoId);
+				
+				if(product!=null) {
+					shelf1.setProduct(product);
+					
+				}else {
+					System.out.println("Esse produto nao existe");
+				}			
+			}
+			shelf1.setID(shelfid);
+			repositorioShelf.update(shelf1);
+			System.out.println(shelf1.toString());
+				
+			
+		}else {
+			System.out.println("Nao existe");
+		}
+		
+		printShelf();
 	}
 //------------------------------------FIM METODOS SHELVES------------------------------------------//		
 	

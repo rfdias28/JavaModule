@@ -24,7 +24,7 @@ public abstract class EntityRepository <T extends Entity > {
 		map.remove(id);
 	}
 	
-	public void updateById(T entity) {
+	public void update(T entity) {
 		map.replace(entity.getID(), entity);
 	}
 	
